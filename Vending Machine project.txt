@@ -1,0 +1,157 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        VendingMachine v = new VendingMachine();
+        Card c1 = new Card(100);
+        Card c2 = new Card(50);
+        String drinkName;
+        System.out.println(v.getDrinkDetail());
+        System.out.print("Enter your drink: ");
+        drinkName = input.next();
+        System.out.println(v.buy(drinkName, c1)); //use card c1
+        System.out.println("CardID: " + c1.getCardID() + " Card amount left: " + c1.getAmount());
+        System.out.println(v.getDrinkDetail());
+        System.out.print("Enter your drink: ");
+        drinkName = input.next();
+        System.out.println(v.buy(drinkName, c2)); //use card c2
+        System.out.println("CardID: " + c2.getCardID() + " Card amount left: " + c2.getAmount());
+        System.out.println(v.getDrinkDetail());
+        System.out.print("Enter your drink: ");
+        drinkName = input.next();
+        System.out.println(v.buy(drinkName, c2)); //use card c2
+        System.out.println("CardID: " + c2.getCardID() + " Card amount left: " + c2.getAmount());
+        System.out.println(v.getDrinkDetail());
+        System.out.print("Enter your drink: ");
+        drinkName = input.next();
+        System.out.println(v.buy(drinkName, c2)); //use card c2
+        System.out.println("CardID: " + c2.getCardID() + " Card amount left: " + c2.getAmount());
+        System.out.println("\n====Simulate end of day====");
+        System.out.println("Revenue: " + v.getRevenue());
+        v.endOfDayProcess();
+        System.out.println(v.getDrinkDetail());
+        
+    }
+}
+       
+class Card{
+    private int cardID;
+    private int amount;
+    private static int count = 0;
+    private static final int MINVALUE = 10;
+    public Card(int initAmt){
+        amount = initAmt;
+        count = count + 1;
+        cardID = count;
+    }
+    public int getCardID(){
+        return cardID;
+    }
+    public int getAmount(){
+        return amount;
+    }
+    public void addMoney(int amount){
+        this.amount = this.amount + amount;
+    }
+    public boolean pay(int amount){
+        if(this.amount >= amount + 10){
+            this.amount = this.amount - amount;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+
+class DrinkBox{
+    private String name;
+    private int price;
+    private int amount;
+    public DrinkBox(String name, int price, int amount){
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+    }
+    public String getName(){
+        return name;
+    }
+    public int getPrice(){
+        return price;
+    }
+    public int getAmount(){
+        return amount;
+    }
+    public void setAmount(int amount){
+        this.amount = amount;
+    }
+}
+    
+class VendingMachine {
+    private ArrayList<DrinkBox> drinkList = new ArrayList<DrinkBox>();
+    private int revenue;
+    public VendingMachine() {
+    drinkList.add(new DrinkBox("Coke", 13, 2));
+    drinkList.add(new DrinkBox("Sprite", 13, 2));
+    drinkList.add(new DrinkBox("GreenTea", 20, 2));
+    drinkList.add(new DrinkBox("Water", 10, 2));
+    drinkList.add(new DrinkBox("MinuteMaid", 18, 2));
+    drinkList.add(new DrinkBox("Pepsi", 13, 2));
+    drinkList.add(new DrinkBox("Vitamilk", 15, 2));
+    drinkList.add(new DrinkBox("RootBeer", 13, 2));
+    }
+    
+    public String buy(String name, Card c) {
+    //enter your code here
+    String state = "notFound";
+    int j = 0;
+    for(int i = 0; i < 8; i++){
+        if( ((drinkList.get(i)).getName()).equals(name) ){
+            state = "found";
+            j = i;
+            break;
+        }
+    }
+    if(state.equals("notFound")){
+        return "Drink not found";
+    }
+    else{
+        if( (drinkList.get(j)).getAmount() == 0){
+            return "Out of stock";
+        }
+        if( c.getCardID() < 1 || c.getCardID() > 100 ){
+            return "Invalid card";
+        }
+        if( c.pay((drinkList.get(j)).getPrice()) ){
+            (drinkList.get(j)).setAmount( (drinkList.get(j)).getAmount()-1 );
+            revenue = revenue + (drinkList.get(j)).getPrice();
+            return "Thank you";
+        }
+        else{
+            return "Not enough money";
+        }
+    }
+    }
+    public void endOfDayProcess() {
+    //enter your code here
+    for(int i = 0; i < 8; i++){
+        (drinkList.get(i)).setAmount(2);
+    }
+    revenue = 0;
+    }
+    public int getRevenue() {
+    //enter your code here
+    return revenue;
+    }
+    public String getDrinkDetail() {
+    //enter your code here
+    String x = "";
+    for(int i = 0; i < 8; i++){
+        x = x + (drinkList.get(i)).getName() + " " + (drinkList.get(i)).getPrice() + " " + (drinkList.get(i)).getAmount() + "\n";
+    }
+    return x;
+    }
+}
+
