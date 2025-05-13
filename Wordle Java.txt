@@ -1,0 +1,79 @@
+import java.util.Random;
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        Random rand = new Random();
+        String[] words = {"APPLE", "BREAD", "CHAIR", "DANCE", "EAGLE",
+            "FLASH", "GRASS", "HOUSE", "CANDY", "JELLY",
+            "KNOCK", "LEMON", "MAGIC", "NIGHT", "OCEAN",
+            "PEACH", "QUIET", "RIVER", "SHARP", "TRAIN",
+            "UNION", "PATTY", "WATER", "GRACE", "SHOES",
+            "ZEBRA", "PHONE", "HAPPY", "DREAM", "EARTH"};
+        System.out.println("Type 'START' to start a game");
+        String x = input.next();
+        
+        if(x.equals("START")){
+            while(true){
+            int randomIndex = rand.nextInt(words.length);
+            String randomWord = words[randomIndex];
+            String[] listOfalphabet = new String[5];
+            
+            for(int i = 0; i < 5; i++){
+                listOfalphabet[i] = randomWord.substring(i, i+1);
+            }
+            String result = "Lose";
+            for(int i = 0; i < 6; i++){
+                System.out.println("Round " + (i+1));
+                System.out.print("Enter a word: ");
+                String guessWord = input.next();
+                String[] listOfGuess = new String[5];
+                String[] color = new String[5];
+                for(int j = 0; j < 5; j++){
+                listOfGuess[j] = guessWord.substring(j, j+1);
+                }
+                for(int k = 0; k < 5; k++){//Check
+                    if(listOfGuess[k].equals(listOfalphabet[k])){
+                        color[k] = "Green";
+                    }
+                    else{
+                        String state = "notFound";
+                        for(int m = 0; m < 5; m++){
+                            if(listOfGuess[k].equals(listOfalphabet[m])){
+                                color[k] = "Yellow";
+                                state = "found";
+                                break;
+                            }
+                        }
+                        if(state.equals("notFound")){
+                            color[k] = "Gray";
+                        }
+                    }
+                }
+                String showColor = "";
+                for(int n = 0; n < 5; n++){
+                    showColor = showColor + color[n] + " ";
+                }
+                System.out.println(showColor);
+                if(color[0].equals("Green") && color[1].equals("Green") && color[2].equals("Green") && color[3].equals("Green") && color[4].equals("Green")){
+                    System.out.println("You win !");
+                    result = "Win";
+                    break;
+                }
+            }
+            if(result.equals("Lose")){
+                System.out.println("You lose.");
+                System.out.println("The word is " + randomWord);
+            }
+            System.out.println("Do you want to play again ?");
+            System.out.print("Your answer: ");
+            String ans = input.next();
+            if(ans.equals("NO")){
+                break;
+            }
+            }
+            System.out.println("Game over");
+        }
+            
+    }
+}
