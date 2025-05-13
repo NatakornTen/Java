@@ -1,0 +1,148 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("TYPE 'START' TO START A GAME.");
+        String x = input.next();
+        if(x.equals("START")){
+            while(true){//Start
+                String[] table = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+                System.out.println(table[0]+" "+table[1]+" "+table[2]+"\n"+table[3]+" "+table[4]+" "+table[5]+"\n"+table[6]+" "+table[7]+" "+table[8]);
+                //Set up game
+                
+                while(true){
+                    
+                    System.out.println("X's turn. Pick a number.");
+                    
+                    while(true){
+                        System.out.print("Enter a number: ");
+                        int numX = input.nextInt();
+                        if(numX < 10 && numX > 0){
+                        if(!table[numX-1].equals("X") && !table[numX-1].equals("O")){
+                        if(Integer.parseInt(table[numX-1])==numX){
+                            table[numX-1] = "X";
+                            System.out.println(table[0]+" "+table[1]+" "+table[2]+"\n"+table[3]+" "+table[4]+" "+table[5]+"\n"+table[6]+" "+table[7]+" "+table[8]);// Show table
+                            break;
+                        }
+                        }
+                        }
+                        if(numX < 1 || numX > 9){
+                            System.out.println("You can only choose a number from 1 to 9.");
+                            continue;
+                        }
+                        if(table[numX-1].equals("X") || table[numX-1].equals("O")){
+                            System.out.println("This number has already been chosen. Pick other number.");
+                        }
+                    }
+                    if(table[0].equals("X") && table[1].equals("X") && table[2].equals("X")){
+                        System.out.println("X win !");
+                        break;
+                    }
+                    if(table[3].equals("X") && table[4].equals("X") && table[5].equals("X")){
+                        System.out.println("X win !");
+                        break;
+                    }
+                    if(table[6].equals("X") && table[7].equals("X") && table[8].equals("X")){
+                        System.out.println("X win !");
+                        break;
+                    }
+                    if(table[0].equals("X") && table[3].equals("X") && table[6].equals("X")){
+                        System.out.println("X win !");
+                        break;
+                    }
+                    if(table[1].equals("X") && table[4].equals("X") && table[7].equals("X")){
+                        System.out.println("X win !");
+                        break;
+                    }
+                    if(table[2].equals("X") && table[5].equals("X") && table[8].equals("X")){
+                        System.out.println("X win !");
+                        break;
+                    }
+                    if(table[0].equals("X") && table[4].equals("X") && table[8].equals("X")){
+                        System.out.println("X win !");
+                        break;
+                    }
+                    if(table[2].equals("X") && table[4].equals("X") && table[6].equals("X")){
+                        System.out.println("X win !");
+                        break;
+                    }
+                    
+                    Boolean isDraw = true;
+                    for(int i = 0; i < 9; i++){
+                        if(!table[i].equals("X") && !table[i].equals("O")){
+                            isDraw = false;
+                            break;
+                        }
+                    }
+                    if(isDraw){
+                        System.out.println("Draw");
+                        break;
+                    }
+                    
+                    System.out.println("O's turn. Pick a number.");
+                    
+                    while(true){
+                        System.out.print("Enter a number: ");
+                        int numO = input.nextInt();
+                        if(numO < 10 && numO > 0){
+                        if(!table[numO-1].equals("X") && !table[numO-1].equals("O")){
+                        if(Integer.parseInt(table[numO-1])==numO){
+                            table[numO-1] = "O";
+                            System.out.println(table[0]+" "+table[1]+" "+table[2]+"\n"+table[3]+" "+table[4]+" "+table[5]+"\n"+table[6]+" "+table[7]+" "+table[8]);// Show table
+                            break;
+                        }
+                        }
+                        }
+                        if(numO < 1 || numO > 9){
+                            System.out.println("You can only choose a number from 1 to 9.");
+                            continue;
+                        }
+                        if(table[numO-1].equals("X") || table[numO-1].equals("O")){
+                            System.out.println("This number has already been chosen. Pick other number.");
+                        }
+                    }
+                    if(table[0].equals("O") && table[1].equals("O") && table[2].equals("O")){
+                        System.out.println("O win !");
+                        break;
+                    }
+                    if(table[3].equals("O") && table[4].equals("O") && table[5].equals("O")){
+                        System.out.println("O win !");
+                        break;
+                    }
+                    if(table[6].equals("O") && table[7].equals("O") && table[8].equals("O")){
+                        System.out.println("O win !");
+                        break;
+                    }
+                    if(table[0].equals("O") && table[3].equals("O") && table[6].equals("O")){
+                        System.out.println("O win !");
+                        break;
+                    }
+                    if(table[1].equals("O") && table[4].equals("O") && table[7].equals("O")){
+                        System.out.println("O win !");
+                        break;
+                    }
+                    if(table[2].equals("O") && table[5].equals("O") && table[8].equals("O")){
+                        System.out.println("O win !");
+                        break;
+                    }
+                    if(table[0].equals("O") && table[4].equals("O") && table[8].equals("O")){
+                        System.out.println("O win !");
+                        break;
+                    }
+                    if(table[2].equals("O") && table[4].equals("O") && table[6].equals("O")){
+                        System.out.println("O win !");
+                        break;
+                    }
+                }
+                
+                System.out.println("Do you want to play again ?");
+                System.out.print("Your answer: ");
+                String answer = input.next();
+                if(answer.equals("NO")){
+                    break;
+                }
+            }
+        }
+        System.out.println("Game over");
+    }
+}
