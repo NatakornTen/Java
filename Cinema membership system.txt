@@ -1,0 +1,120 @@
+import java.util.ArrayList;
+public class IconCineconic {
+ public static void main(String[] args) {
+ // สร้างโรงภาพยนตร์ 3 โรง
+ Cinema c1 = new Cinema("Cinema", 250);
+ Cinema c2 = new Cinema("IMAX", 350);
+ Cinema c3 = new Cinema("4DX", 450);
+ // จงเติมคำสั่งสร้าง array list ชื่อ cardAL ให้เก็บ object ของ MGenCard
+ ArrayList<MGenCard> cardAL = new ArrayList<>();
+ cardAL.add(new MGenCard("Sasipa"));
+ cardAL.add(new MGenFirstClass("Monnat"));
+ cardAL.add(new MGenStudent("Mike"));
+ // จงเติมคำสั่งเพื่อสั่งพิมพ์แสดงค่าของ memberFee ของ MGenStudent
+ // ครูใส่บรรทัด พิมพ์ว่า Test run : ให้เพื่อบอกสถานการณ์ของการรันแต่ละอัน
+ System.out.println(MGenStudent.memberFee);
+ System.out.println("Test run : Sasipa buys ticket(s) at cinema");
+ cardAL.get(0).buyTicket(c1, 2);
+
+ System.out.println("Test run : Sasipa buys ticket(s) at 4DX");
+ cardAL.get(0).buyTicket(c3, 2);
+
+ System.out.println("Test run : Monnat buys ticket(s) at IMAX");
+ cardAL.get(1).buyTicket(c2, 2);
+ System.out.println("Test run : Monnat buys ticket(s) at 4DX");
+ cardAL.get(1).buyTicket(c3, 4);
+
+ System.out.println("Test run : Mike buys ticket(s) at cinema");
+ // จงเติมคำสั่งให้ Mike ซื้อตั๋วจากโรง cinema 2 ใบ
+cardAL.get(2).buyTicket(c1, 2);
+System.out.println("Test run : Monnat gets 2 free tickets");
+ // จงเติมคำสั่งให้ Monnat ขอรับตั๋วฟรีของสมาชิกแบบ first class 2 ใบ
+ MGenFirstClass k = (MGenFirstClass) cardAL.get(1);
+ k.getFreeTicket();
+ System.out.println("Test run : Call usePoint() of every object in the array list");
+ // จงเติมคำสั่งเพื่อวนลูปสั่งให้ทุก object ใน array list ใช้แต้มแลกบัตรฟรี
+for(MGenCard x : cardAL){
+    x.usePoint();
+        }
+    }
+}
+
+class Cinema {
+ private String name; // ชื่อโรงภาพยนตร์
+ private int ticketPrice; // ราคาตั๋วหนัง
+ public Cinema (String name, int ticketPrice) {
+ this.name = name;
+ this.ticketPrice = ticketPrice;
+ }
+ public String getName() {
+ return name;
+ }
+ public int getTicketPrice() {
+ return ticketPrice;
+ }
+}
+
+public class MGenCard {
+    public static int memberFee = 150;
+    public static int cnt = 0;
+    private int number;
+    private String name;
+    private int point;
+    public MGenCard(String name) {
+        cnt++;
+        this.number = cnt;
+        this.name = name;
+    }
+    public void usePoint() {
+        if (point >= 20) {
+            System.out.println("You got a free Cinema ticket");
+            point -= 20;
+        }
+        else{
+            System.out.println("You don't have enough points");
+        }
+        System.out.println(toString());
+    }
+    public void buyTicket(Cinema c, int numTicket){
+        int totalPrice = c.getTicketPrice()*numTicket;
+        point = point + totalPrice/50;
+        System.out.println(c.getName() + " Total amount : " + totalPrice);
+        System.out.println(toString());
+    }
+    public String toString(){
+        String op = "iconcineconic.MGenCard[number : " + number + ", name : " + name + ", point : " + point + "]";
+        return op;
+    }
+}
+
+class MGenFirstClass extends MGenCard{
+    private int freeTicket = 2;
+    public MGenFirstClass(String name){
+        super(name);
+    }
+    public void getFreeTicket(){
+        if(freeTicket == 2){
+            freeTicket = 0;
+            System.out.println("You got 2 Cinema tickets");
+        }
+        else{
+            System.out.println("You already got the free tickets");
+        }
+    }
+    
+    public String toString(){
+        return super.toString() + "[free ticket : " + freeTicket + "]";
+    }
+}
+
+class MGenStudent extends MGenCard{
+    public static final int discount = 20;
+    public MGenStudent(String name){
+        super(name);
+    }
+    public void buyTicket(Cinema c, int numTicket){
+        super.buyTicket(c, numTicket);
+        double dis = 0.2*(c.getTicketPrice()*numTicket);
+        System.out.println("You got " + dis + " discount");
+    }
+}
