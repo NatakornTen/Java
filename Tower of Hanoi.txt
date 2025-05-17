@@ -1,0 +1,191 @@
+import java.util.Stack;
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("How many disks do you want ?");
+        System.out.print("Enter the number: ");
+        int n = input.nextInt();
+        Stack<Integer> Tower1 = new Stack<>();
+        Stack<Integer> Tower2 = new Stack<>();
+        Stack<Integer> Tower3 = new Stack<>();
+        for(int i = n; i > 0; i--){
+            Tower1.push(i);
+        }
+        int moves = 0;
+        while(true){
+            String status = "";
+            if(Tower3.size() == n){
+                for(int j = 0;j < n;j++){
+                    if(Tower3.get(j)+j != n){
+                        status = "No";
+                        break;
+                    }
+                }
+                if(status.equals("")){
+                    status = "Yes";    
+                }
+            }
+            if(status.equals("Yes")){
+                System.out.println("You win !");
+                if(moves == Math.pow(2, n)-1){
+                    System.out.println("Perfect !");
+                    System.out.println("Puzzle solved in " + moves + " moves");
+                }
+                else{
+                    System.out.println("Puzzle solved in " + moves + " moves");
+                    System.out.println("The minimum number of moves is " + ((int)(Math.pow(2, n)-1)));
+                }
+                break;
+            }
+            //เล่นต่อ
+            System.out.print("Enter the number of plate: ");
+            int num = input.nextInt();
+            System.out.print("Enter the destination: ");
+            int des = input.nextInt();
+            
+            if(Tower1.size() != 0 && Tower1.peek() == num){
+                
+                    if(des == 2){
+                        if(Tower2.size() == 0){
+                            Tower1.pop();
+                            Tower2.push(num);
+                            moves++;
+                            System.out.println(Tower1);
+                            System.out.println(Tower2);
+                            System.out.println(Tower3);
+                        }
+                        else if(num < Tower2.peek()){
+                            Tower1.pop();
+                            Tower2.push(num);
+                            moves++;
+                            System.out.println(Tower1);
+                            System.out.println(Tower2);
+                            System.out.println(Tower3);
+                        }
+                        else{
+                            System.out.println("Invalid move");
+                        }
+                    }
+                    if(des == 3){
+                        if(Tower3.size() == 0){
+                            Tower1.pop();
+                            Tower3.push(num);
+                            moves++;
+                            System.out.println(Tower1);
+                            System.out.println(Tower2);
+                            System.out.println(Tower3);
+                        }
+                        else if(num < Tower3.peek()){
+                            Tower1.pop();
+                            Tower3.push(num);
+                            moves++;
+                            System.out.println(Tower1);
+                            System.out.println(Tower2);
+                            System.out.println(Tower3);
+                        }
+                        else{
+                            System.out.println("Invalid move");
+                        }
+                    }
+                 
+            }
+            else if(Tower2.size() != 0 && Tower2.peek() == num){
+                
+                    if(des == 1){
+                        if(Tower1.size() == 0){
+                            Tower2.pop();
+                            Tower1.push(num);
+                            moves++;
+                            System.out.println(Tower1);
+                            System.out.println(Tower2);
+                            System.out.println(Tower3);
+                        }
+                        else if(num < Tower1.peek()){
+                            Tower2.pop();
+                            Tower1.push(num);
+                            moves++;
+                            System.out.println(Tower1);
+                            System.out.println(Tower2);
+                            System.out.println(Tower3);
+                        }
+                        else{
+                            System.out.println("Invalid move");
+                        }
+                    }
+                    if(des == 3){
+                        if(Tower3.size() == 0){
+                            Tower2.pop();
+                            Tower3.push(num);
+                            moves++;
+                            System.out.println(Tower1);
+                            System.out.println(Tower2);
+                            System.out.println(Tower3);
+                        }
+                        else if(num < Tower3.peek()){
+                            Tower2.pop();
+                            Tower3.push(num);
+                            moves++;
+                            System.out.println(Tower1);
+                            System.out.println(Tower2);
+                            System.out.println(Tower3);
+                        }
+                        else{
+                            System.out.println("Invalid move");
+                        }
+                    }
+                 
+            }
+            else if(Tower3.size() != 0 && Tower3.peek() == num){
+                
+                    if(des == 1){
+                        if(Tower1.size() == 0){
+                            Tower3.pop();
+                            Tower1.push(num);
+                            moves++;
+                            System.out.println(Tower1);
+                            System.out.println(Tower2);
+                            System.out.println(Tower3);
+                        }
+                        else if(num < Tower1.peek()){
+                            Tower3.pop();
+                            Tower1.push(num);
+                            moves++;
+                            System.out.println(Tower1);
+                            System.out.println(Tower2);
+                            System.out.println(Tower3);
+                        }
+                        else{
+                            System.out.println("Invalid move");
+                        }
+                    }
+                    if(des == 2){
+                        if(Tower2.size() == 0){
+                            Tower3.pop();
+                            Tower2.push(num);
+                            moves++;
+                            System.out.println(Tower1);
+                            System.out.println(Tower2);
+                            System.out.println(Tower3);
+                        }
+                        else if(num < Tower2.peek()){
+                            Tower3.pop();
+                            Tower2.push(num);
+                            moves++;
+                            System.out.println(Tower1);
+                            System.out.println(Tower2);
+                            System.out.println(Tower3);
+                        }
+                        else{
+                            System.out.println("Invalid move");
+                        }
+                    }
+                 
+            }
+            else{
+                System.out.println("Invalid move");
+            }
+            
+        }
+    }
+}
