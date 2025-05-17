@@ -1,0 +1,139 @@
+import java.util.ArrayList;
+public class PizzaTester {
+    public static void main(String[] args) {
+        double revenue = 0;
+        // all customers
+        Customer c[] = new Customer[5];
+        c[0] = new Customer("Sasipa", "0894567122");
+        c[1] = new Customer("Monnat", "0867867101");
+        c[2] = new GoldCustomer("Mike", "0858822355", 10);
+        c[3] = new GoldCustomer("Peach", "0860775611", 15);
+        c[4] = new GoldCustomer("Samor", "0894567122", 5);
+        // ส่วนลด 10 หมายถึง 10%
+        // all types of pizza
+        Pizza piz[] = new Pizza[5];
+        piz[0] = new Pizza("Hawaiian", 199);
+        piz[1] = new PizzaSpecial("Hawaiian plus", 259, "with cheese edge");
+        piz[2] = new Pizza("Meat Lovers", 239);
+        piz[3] = new PizzaSpecial("Meat Lovers plus", 299,
+        "with cheese edge");
+        piz[4] = new PizzaSpecial("Meat Lovers x 2", 299, "with extra meat");
+        //first order
+        Order o1 = new Order(c[1]);
+        o1.addPizza(piz[0]);
+        o1.addPizza(piz[2]);
+        System.out.println(o1.getOrderDetail());
+        revenue += o1.calculatePayment();
+        //second order
+        Order o2 = new Order(c[3]);
+        o2.addPizza(piz[0]);
+        o2.addPizza(piz[4]);
+        System.out.println(o2.getOrderDetail());
+        revenue += o2.calculatePayment();
+        // end of day
+        System.out.println("Total revenue of today : " + revenue);
+    }
+}
+
+class Order{
+     public static int cntOrder = 0;
+     private int id;
+     private Customer c;
+     private ArrayList<Pizza> p;
+     //methods
+     public Order(Customer c){
+         cntOrder++;
+         id = cntOrder;
+         this.c = c;
+         p = new ArrayList<>();
+     }
+     public void addPizza(Pizza pizza){
+         p.add(pizza);
+     }
+     public String getOrderDetail(){
+         String listOfOrder = "";
+         int totalpieces = 0;
+         for(Pizza pz : p){
+             listOfOrder = listOfOrder + pz.toString() + "\n";
+             totalpieces++;
+         }
+         
+         return "Order id : " + id + "\n"
+         + c.toString() + "\n"
+         + listOfOrder + "Total pieces : " + totalpieces + "\n" + "Total cost : " + calculatePayment();
+     }
+     public double calculatePayment(){
+         double totalCost = 0;
+         for(Pizza pz : p){
+             totalCost = totalCost + pz.getPrice();
+         }
+         if(c instanceof GoldCustomer){
+             GoldCustomer gc = (GoldCustomer) c;
+             return totalCost*(1-(gc.getDiscount()/100));
+         }
+         else{
+             return totalCost;
+         }
+     }
+}
+
+class Pizza{
+    private String name;
+    private double price;
+    public Pizza(String name, double price){
+        this.name = name;
+        this.price = price;
+    }
+    public String getName(){
+        return name;
+    }
+    public double getPrice(){
+        return price;
+    }
+    public String toString(){
+        return name + " price : " + price;
+    }
+}
+
+class PizzaSpecial extends Pizza{
+    private String special;
+    public PizzaSpecial(String name, double price, String special){
+        super(name, price);
+        this.special = special;
+    }
+    public String toString(){
+        return getName() + " price : " + getPrice() + " special : " + special;
+    }
+}
+
+class Customer{
+     private String name;
+     private String tel;
+     public Customer(String name, String tel){
+         this.name = name;
+         this.tel = tel;
+     }
+     public String getName(){
+         return name;
+     }
+     public String getTel(){
+         return tel;
+     }
+     public String toString(){
+         return name + " tel : " + tel;
+     }
+}
+
+class GoldCustomer extends Customer{
+    private double discount;
+    public GoldCustomer(String name, String tel, double discount){
+        super(name, tel);
+        this.discount = discount;
+    }
+    public double getDiscount(){
+        return discount;
+    }
+    public String toString(){
+         return getName() + " tel : " + getTel() + " discount : " + discount;
+     }
+}
