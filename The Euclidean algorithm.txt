@@ -1,0 +1,33 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the first number: ");
+        int a = input.nextInt();
+        System.out.print("Enter the second number: ");
+        int b = input.nextInt();
+        
+        while(true){
+            if(a%b == 0){
+                System.out.print("The gcd is " + b);
+                break;
+            }
+            else if(b%a == 0){
+                System.out.print("The gcd is " + a);
+                break;
+            }
+            else{
+                if(a > b){
+                    int c = a%b;
+                    a = b;
+                    b = c;
+                }
+                else if(b > a){
+                    int c = b%a;
+                    b = a;
+                    a = c;
+                }
+            }
+        }
+    }
+}
