@@ -1,0 +1,288 @@
+import java.util.Scanner;
+import java.util.Stack;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        Tube tube1 = new Tube();
+        Tube tube2 = new Tube();
+        Tube tube3 = new Tube();
+        Tube tube4 = new Tube();
+        Tube tube5 = new Tube();
+        Ball b1 = new Ball("Red");
+        Ball b2 = new Ball("Green");
+        Ball b3 = new Ball("Yellow");
+        Ball b4 = new Ball("Violet");
+        Ball b5 = new Ball("Red");
+        Ball b6 = new Ball("Green");
+        Ball b7 = new Ball("Yellow");
+        Ball b8 = new Ball("Violet");
+        Ball b9 = new Ball("Yellow");
+        Ball b10 = new Ball("Green");
+        Ball b11 = new Ball("Red");
+        Ball b12 = new Ball("Violet");
+        Ball b13 = new Ball("Red");
+        Ball b14 = new Ball("Green");
+        Ball b15 = new Ball("Yellow");
+        Ball b16 = new Ball("Violet");
+        Ball b17 = new Ball("Red");
+        Ball b18 = new Ball("Green");
+        Ball b19 = new Ball("Yellow");
+        Ball b20 = new Ball("Violet");
+        Ball b21 = new Ball("Red");
+        Ball b22 = new Ball("Green");
+        Ball b23 = new Ball("Violet");
+        Ball b24 = new Ball("Yellow");
+        Ball b25 = new Ball("Red");
+        Ball b26 = new Ball("Green");
+        Ball b27 = new Ball("Yellow");
+        Ball b28 = new Ball("Violet");
+        tube1.add(b1);
+        tube1.add(b2);
+        tube1.add(b3);
+        tube1.add(b4);
+        tube1.add(b5);
+        tube1.add(b6);
+        tube1.add(b7);
+        tube2.add(b8);
+        tube2.add(b9);
+        tube2.add(b10);
+        tube2.add(b11);
+        tube2.add(b12);
+        tube2.add(b13);
+        tube2.add(b14);
+        tube3.add(b15);
+        tube3.add(b16);
+        tube3.add(b17);
+        tube3.add(b18);
+        tube3.add(b19);
+        tube3.add(b20);
+        tube3.add(b21);
+        tube4.add(b22);
+        tube4.add(b23);
+        tube4.add(b24);
+        tube4.add(b25);
+        tube4.add(b26);
+        tube4.add(b27);
+        tube4.add(b28);
+        while(true){
+            tube1.showTube();
+            tube2.showTube();
+            tube3.showTube();
+            tube4.showTube();
+            tube5.showTube();
+              if(tube1.isSameColor() && tube2.isSameColor() && tube3.isSameColor() && tube4.isSameColor() && tube5.isSameColor()){
+                  System.out.println("You win !");
+                  break;
+              }
+            System.out.print("Select the number of tube that you want to pick a ball from :");
+            int t1 = input.nextInt();
+            System.out.print("Select the number of tube that you want to put the ball in :");
+            int t2 = input.nextInt();
+            if(t1 == t2){
+                System.out.println("");
+            }
+            if(t1 == 1 && t2 == 2){
+                if(tube2.getNum() < 7 && tube1.getNum() != 0){
+                tube2.add(tube1.getTop());
+                tube1.delete();
+                }
+            }
+            if(t1 == 1 && t2 == 3){
+                if(tube3.getNum() < 7 && tube1.getNum() != 0){
+                tube3.add(tube1.getTop());
+                tube1.delete();
+                }
+            }
+            if(t1 == 1 && t2 == 4){
+                if(tube4.getNum() < 7 && tube1.getNum() != 0){
+                tube4.add(tube1.getTop());
+                tube1.delete();
+                }
+            }
+            if(t1 == 1 && t2 == 5){
+                if(tube5.getNum() < 7 && tube1.getNum() != 0){
+                tube5.add(tube1.getTop());
+                tube1.delete();
+                }
+            }
+            if(t1 == 2 && t2 == 1){
+                if(tube1.getNum() < 7 && tube2.getNum() != 0){
+                    tube1.add(tube2.getTop());
+                    tube2.delete();
+                }
+            }
+            if(t1 == 2 && t2 == 3){
+                if(tube3.getNum() < 7 && tube2.getNum() != 0){
+                tube3.add(tube2.getTop());
+                tube2.delete();
+                }
+            }
+            if(t1 == 2 && t2 == 4){
+                if(tube4.getNum() < 7 && tube2.getNum() != 0){
+                tube4.add(tube2.getTop());
+                tube2.delete();
+                }
+            }
+            if(t1 == 2 && t2 == 5){
+                if(tube5.getNum() < 7 && tube2.getNum() != 0){
+                tube5.add(tube2.getTop());
+                tube2.delete();
+                }
+            }
+            if(t1 == 3 && t2 == 1){
+                if(tube1.getNum() < 7 && tube3.getNum() != 0){
+                tube1.add(tube3.getTop());
+                tube3.delete();
+                }
+            }
+            if(t1 == 3 && t2 == 2){
+                if(tube2.getNum() < 7 && tube3.getNum() != 0){
+                tube2.add(tube3.getTop());
+                tube3.delete();
+                }
+            }
+            if(t1 == 3 && t2 == 4){
+                if(tube4.getNum() < 7 && tube3.getNum() != 0){
+                tube4.add(tube3.getTop());
+                tube3.delete();
+                }
+            }
+            if(t1 == 3 && t2 == 5){
+                if(tube5.getNum() < 7 && tube3.getNum() != 0){
+                tube5.add(tube3.getTop());
+                tube3.delete();
+                }
+            }
+            if(t1 == 4 && t2 == 1){
+                if(tube1.getNum() < 7 && tube4.getNum() != 0){
+                tube1.add(tube4.getTop());
+                tube4.delete();
+                }
+            }
+            if(t1 == 4 && t2 == 2){
+                if(tube2.getNum() < 7 && tube4.getNum() != 0){
+                tube2.add(tube4.getTop());
+                tube4.delete();
+                }
+            }
+            if(t1 == 4 && t2 == 3){
+                if(tube3.getNum() < 7 && tube4.getNum() != 0){
+                tube3.add(tube4.getTop());
+                tube4.delete();
+                }
+            }
+            if(t1 == 4 && t2 == 5){
+                if(tube5.getNum() < 7 && tube4.getNum() != 0){
+                tube5.add(tube4.getTop());
+                tube4.delete();
+                }
+            }
+            if(t1 == 5 && t2 == 1){
+                if(tube1.getNum() < 7 && tube5.getNum() != 0){
+                tube1.add(tube5.getTop());
+                tube5.delete();
+                }
+            }
+            if(t1 == 5 && t2 == 2){
+                if(tube2.getNum() < 7 && tube5.getNum() != 0){
+                tube2.add(tube5.getTop());
+                tube5.delete();
+                }
+            }
+            if(t1 == 5 && t2 == 3){
+                if(tube3.getNum() < 7 && tube5.getNum() != 0){
+                tube3.add(tube5.getTop());
+                tube5.delete();
+                }
+            }
+            if(t1 == 5 && t2 == 4){
+                if(tube4.getNum() < 7 && tube5.getNum() != 0){
+                tube4.add(tube5.getTop());
+                tube5.delete();
+                }
+            }
+        }
+        
+    }
+}
+
+class Tube{
+    private Stack<Ball> tube;
+    private int size;
+    private int num;//number of ball in tube
+    
+    public Tube(){
+        tube = new Stack<>();
+        size = 7;
+        num = 0;
+    }
+    public void add(Ball b){
+        if(num == 7){
+            System.out.println("This tube is full.");
+        }
+        else{
+            tube.push(b);
+            num++;
+        }
+    }
+    public void delete(){
+        if(num == 0){
+            System.out.println("This tube is empty.");
+        }
+        else{
+            tube.pop();
+            num--;
+        }
+    }
+    public void showTube(){
+        if(num == 0){
+          System.out.println("[]");  
+        }
+        else{
+            String x = "[";
+            for(int i = 0; i < num; i++){
+                x = x + (tube.get(i)).getColor();
+                x = x + " ";
+            }
+            x = x + "]";
+            System.out.println(x);
+        }
+    }
+    public Boolean isSameColor(){
+        if(num == 0){
+            return true;
+        }
+        else{
+            String state = "";
+            for(int i = 0; i < num-1; i++){
+                if( !((tube.get(i)).getColor()).equals((tube.get(i+1)).getColor()) ){
+                    state = "No";
+                    break;
+                }
+            }
+            if(state.equals("No")){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        
+    }
+    public Ball getTop(){
+        return tube.peek();
+    }
+    public int getNum(){
+        return num;
+    }
+}
+
+class Ball{
+    private String color;
+    public Ball(String c){
+        color = c;
+    }
+    public String getColor(){
+        return color;
+    }
+}
