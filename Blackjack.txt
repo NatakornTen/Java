@@ -1,0 +1,267 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        ArrayList<Card> deck = new ArrayList<>();
+        for(int i = 2; i < 11; i++){
+            deck.add(new Card(i, "Club"));
+            deck.add(new Card(i, "Diamond"));
+            deck.add(new Card(i, "Heart"));
+            deck.add(new Card(i, "Spade"));
+        }
+        deck.add(new Card("Ace", "Club"));
+        deck.add(new Card("Ace", "Diamond"));
+        deck.add(new Card("Ace", "Heart"));
+        deck.add(new Card("Ace", "Spade"));
+        deck.add(new Card("Jack", "Club"));
+        deck.add(new Card("Jack", "Diamond"));
+        deck.add(new Card("Jack", "Heart"));
+        deck.add(new Card("Jack", "Spade"));
+        deck.add(new Card("Queen", "Club"));
+        deck.add(new Card("Queen", "Diamond"));
+        deck.add(new Card("Queen", "Heart"));
+        deck.add(new Card("Queen", "Spade"));
+        deck.add(new Card("King", "Club"));
+        deck.add(new Card("King", "Diamond"));
+        deck.add(new Card("King", "Heart"));
+        deck.add(new Card("King", "Spade"));
+        Player p = new Player();
+        Dealer d = new Dealer();
+        int rand1 = (int)(Math.random() * 52) + 1;
+        p.addCard(deck.get(rand1-1));
+        deck.remove(rand1-1);
+        int rand2 = (int)(Math.random() * 51) + 1;
+        d.addCard(deck.get(rand2-1));
+        deck.remove(rand2-1);
+        int rand3 = (int)(Math.random() * 50) + 1;
+        p.addCard(deck.get(rand3-1));
+        deck.remove(rand3-1);
+        int rand4 = (int)(Math.random() * 49) + 1;
+        d.drawTheSecretCard(deck.get(rand4-1));
+        deck.remove(rand4-1);
+        System.out.println("Player's cards: ");
+        p.showCard();
+        System.out.println("Dealer's cards: ");
+        d.showCard();
+        //Start
+        for(int j = 0; j < 1; j++){
+            if(p.getPoint() == 21){
+                System.out.println("Player win !");
+                break;
+            }
+            
+            System.out.println("Player's turn");
+            int pcnt = 0;
+            while(true){
+                System.out.println("Hit or Stand ?");
+                String answer = input.next();
+                if(answer.equals("Hit")){
+                    //draw a card
+                    int rand = (int)(Math.random()*(deck.size()-pcnt))+1;
+                    p.addCard(deck.get(rand-1));
+                    deck.remove(rand-1);
+                    pcnt++;
+                    System.out.println("Player's cards: ");
+                    p.showCard();
+                }
+                if(answer.equals("Stand")){
+                    System.out.println("Player's cards: ");
+                    p.showCard();
+                    break;
+                }
+            }
+            
+            System.out.println("Dealer reveals hidden card.");
+            d.showSecretCard();
+            System.out.println("Dealer's cards: ");
+            d.showCard();
+            int dcnt = 0;
+            while(d.getPoint() < 17){
+                int ran = (int)(Math.random()*(deck.size()-dcnt))+1;
+                d.addCard(deck.get(ran-1));
+                deck.remove(ran-1);
+                dcnt++;
+                System.out.println("Dealer's cards: ");
+                d.showCard();
+            }
+            System.out.print("Player: ");
+            System.out.println(p.getPoint());
+            System.out.print("Dealer: ");
+            System.out.println(d.getPoint());
+            if(p.getPoint() > d.getPoint() && p.getPoint() <= 21){
+                System.out.println("Player win");
+            }
+            if(p.getPoint() > d.getPoint() && p.getPoint() > 21){
+                System.out.println("Dealer win");
+            }
+            if(p.getPoint() < d.getPoint() && d.getPoint() <= 21){
+                System.out.println("Dealer win");
+            }
+            if(p.getPoint() < d.getPoint() && d.getPoint() > 21){
+                System.out.println("Player win");
+            }
+            if(p.getPoint() == d.getPoint() && p.getPoint() <= 21){
+                System.out.println("Draw");
+            }
+            if(p.getPoint() == d.getPoint() && p.getPoint() > 21){
+                System.out.println("Dealer win");
+            }
+        }
+        System.out.println("Game over");
+    }
+}
+
+class Card{
+    private String name;
+    private int value;
+    private String type;
+    
+    public Card(int number, String type){
+        name = Integer.toString(number);
+        value = number;
+        this.type = type;
+    }
+    public Card(String others, String type){
+        if(others.equals("Jack")){
+            name = "Jack";
+            value = 10;
+            this.type = type;
+        }
+        else if(others.equals("Queen")){
+            name = "Queen";
+            value = 10;
+            this.type = type;
+        }
+        else if(others.equals("King")){
+            name = "King";
+            value = 10;
+            this.type = type;
+        }
+        else if(others.equals("Ace")){
+            name = "Ace";
+            value = 11;// 11 ไปก่อน
+            this.type = type;
+        }
+    }
+    public String getName(){
+        return name;
+    }
+    public int getValue(){
+        return value;
+    }
+    public String getType(){
+        return type;
+    }
+}
+
+class Player{
+    private ArrayList<Card> cardsInHand;
+    private int point;
+    private int numOfAce;
+    
+    public Player(){
+        cardsInHand = new ArrayList<>();
+        point = 0;
+        numOfAce = 0;
+    }
+    public void addCard(Card c){
+        cardsInHand.add(c);
+        point = point + c.getValue();
+        if((c.getName()).equals("Ace")){
+            numOfAce++;
+        }
+    }
+    public int getPoint(){
+        if(point <= 21){
+            return point;
+        }
+        if(point > 21 && numOfAce == 0){
+            return point;
+        }
+        else{
+            for(int i = 0; i < numOfAce; i++){
+                point = point - 10;
+                if(point <= 21){
+                    break;
+                }
+            }
+            return point;
+        }
+    }
+    public void showCard(){
+        String show = "";
+        for(int i = 0; i < cardsInHand.size(); i++){
+            show = show + (cardsInHand.get(i)).getName();
+            show = show + (cardsInHand.get(i)).getType();
+            show = show + " ";
+        }
+        System.out.println(show);
+    }
+}
+
+class Dealer{
+    private ArrayList<Card> cardsInHand;
+    private Card secretCard;
+    private int point;
+    private int numOfAce;
+    private Boolean secretCardIsSecret;
+    public Dealer(){
+        cardsInHand = new ArrayList<>();
+        point = 0;
+        numOfAce = 0;
+        secretCardIsSecret = true;
+    }
+    public void addCard(Card c){
+        cardsInHand.add(c);
+        point = point + c.getValue();
+        if((c.getName()).equals("Ace")){
+            numOfAce++;
+        }
+    }
+    public int getPoint(){
+        if(point <= 21){
+            return point;
+        }
+        if(point > 21 && numOfAce == 0){
+            return point;
+        }
+        else{
+            for(int i = 0; i < numOfAce; i++){
+                point = point - 10;
+                if(point <= 21){
+                    break;
+                }
+            }
+            return point;
+        }
+    }
+    public void showCard(){//*
+        if(secretCardIsSecret){
+        String show = "";
+        for(int i = 0; i < cardsInHand.size(); i++){
+            show = show + (cardsInHand.get(i)).getName();
+            show = show + (cardsInHand.get(i)).getType();
+            show = show + " ";
+        }
+        System.out.println(show + "(hidden)");
+        }
+        else{
+            String show = "";
+            for(int i = 0; i < cardsInHand.size(); i++){
+                show = show + (cardsInHand.get(i)).getName();
+                show = show + (cardsInHand.get(i)).getType();
+                show = show + " ";
+            }
+            System.out.println(show);
+        }
+    }  
+    public void drawTheSecretCard(Card c){
+        secretCard = c;
+    }
+    public void showSecretCard(){
+        cardsInHand.add(secretCard);
+        point = point + secretCard.getValue();//Just add
+        secretCardIsSecret = false;
+    }
+}
