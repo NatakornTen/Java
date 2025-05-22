@@ -54,6 +54,10 @@ public class Main {
             System.out.println("Player's turn");
             int pcnt = 0;
             while(true){
+                if(p.getPoint() > 21){
+                    System.out.println("Dealer win");
+                    return;
+                }
                 System.out.println("Hit or Stand ?");
                 String answer = input.next();
                 if(answer.equals("Hit")){
