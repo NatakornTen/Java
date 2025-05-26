@@ -55,6 +55,9 @@ public class Main {
             int pcnt = 0;
             while(true){
                 if(p.getPoint() > 21){
+                    System.out.print("Player: ");
+                    System.out.println(p.getPoint());
+                    System.out.println("Player busted!");
                     System.out.println("Dealer win");
                     return;
                 }
@@ -187,6 +190,7 @@ class Player{
             for(int i = 0; i < numOfAce; i++){
                 point = point - 10;
                 if(point <= 21){
+                    numOfAce = numOfAce - i - 1;
                     break;
                 }
             }
