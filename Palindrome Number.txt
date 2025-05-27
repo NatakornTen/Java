@@ -11,7 +11,7 @@ public class Main {
             String str = String.valueOf(number);
             String rStr = "";
             for(int i = str.length()-1; i>=0; i--){
-                rStr = rStr + str.substring(i, i + 1);; 
+                rStr = rStr + str.substring(i, i + 1); 
             }
             if(str.equals(rStr)){
                 System.out.println("true");
