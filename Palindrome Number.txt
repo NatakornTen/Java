@@ -1,0 +1,24 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int number = input.nextInt();
+        if(number < 0){
+            System.out.println("false");
+        }
+        else{
+            String str = String.valueOf(number);
+            String rStr = "";
+            for(int i = str.length()-1; i>=0; i--){
+                rStr = rStr + str.substring(i, i + 1);; 
+            }
+            if(str.equals(rStr)){
+                System.out.println("true");
+            }
+            else{
+                System.out.println("false");
+            }
+        }
+    }
+}
