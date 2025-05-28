@@ -1,0 +1,40 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the number of element in array: ");
+        int number = input.nextInt();
+        int[] nums = new int[number];
+        System.out.println("Enter a number in each position.");
+        for(int i = 0; i < number; i++){
+            System.out.print("Enter a number: ");
+            int y = input.nextInt();
+            nums[i] = y;
+        }
+         System.out.print("Enter the target: ");
+         int target = input.nextInt();
+         
+         int position1 = 0;
+         int position2 = 0;
+         Boolean found = false;
+         for(int i = 0; i < number-1; i++){
+             for(int j = i+1; j < number; j++){
+                 if((nums[i] + nums[j]) == target){
+                     position1 = i;
+                     position2 = j;
+                     found = true;
+                     break;
+                 }
+             }
+         }
+         if(found){
+             int[] answer = new int[2];
+             answer[0] = position1;
+             answer[1] = position2;
+             System.out.println("[" + answer[0] + "," + answer[1] + "]");
+         }
+         else{
+             System.out.println("No two numbers add up to the target.");
+         }
+    }
+}
