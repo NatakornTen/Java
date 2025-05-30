@@ -1,0 +1,58 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        int[] nums = {0,0,1,1,1,2,2,3,3,4}; // Input array
+        int[] expectedNums = {0,1,2,3,4,0,0,0,0,0}; // The expected answer with correct length
+        Solution sol = new Solution();
+        int k = sol.removeDuplicates(nums);
+        assert k == expectedNums.length;
+        for (int i = 0; i < k; i++) {
+            assert nums[i] == expectedNums[i];
+        }
+    }
+}
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int s = nums[0];
+        for(int i = 1; i < nums.length; i++){
+            if(s == nums[i]){
+                nums[i] = 0;
+            }
+            else{
+                s = nums[i];
+            }
+        }
+        int index = 1;
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] != 0){
+                nums[index] = nums[i];
+                nums[i] = 0;
+                index++;
+            }
+        }
+        int k = 0;
+            if(nums[0] == 0){
+                k++;
+                for(int i = 1; i < nums.length; i++){
+                    if(nums[i] != 0){
+                        k++;
+                    }
+                    else{
+                        return k;
+                    }
+                }
+            }
+            else{
+                for(int i = 0; i < nums.length; i++){
+                    if(nums[i] != 0){
+                        k++;
+                    }
+                    else{
+                        return k;
+                    }
+                }
+            }
+            return k;
+    }
+}
