@@ -1,0 +1,17 @@
+import java.util.Scanner;
+public class Main{
+    public static void main(String args[]){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a sentence: ");
+        String s = input.nextLine();
+        Solution sol = new Solution();
+        System.out.println(sol.lengthOfLastWord(s));
+    }
+}
+
+class Solution{
+    public int lengthOfLastWord(String s) {
+        String[] words = s.split(" ");
+        return (words[words.length-1]).length();
+    }
+}
