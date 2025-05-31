@@ -1,0 +1,56 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+public class Main{
+    public static void main(String args[]){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the number of elements in array: ");
+        int n = input.nextInt();
+        int[] nums = new int[n];
+        for(int i = 0; i < n; i++){
+            System.out.print("Enter a number: ");
+            int number = input.nextInt();
+            nums[i] = number;
+        }
+        System.out.println(Arrays.toString(nums));
+        Solution sol = new Solution();
+        System.out.println(sol.permute(nums));
+    }
+}
+
+class Solution {
+    public ArrayList<ArrayList<Integer>> permute(int[] nums) {
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        ArrayList<Integer> numS = new ArrayList<>();
+        for(int i = 0; i < nums.length; i++){
+            numS.add(nums[i]);
+        }
+        if(nums.length == 0){
+            return ans;// Empty ArrayList
+        }
+        else if(nums.length == 1){
+            ans.add(numS);
+            return ans;
+        }
+        else{
+            ArrayList<ArrayList<Integer>> newAns = new ArrayList<>();
+            int[] newNums = new int[nums.length - 1];
+            for(int i = 0; i < nums.length - 1; i++){
+                newNums[i] = nums[i];
+            }
+            ans = permute(newNums);
+            for(int i = 0; i < ans.size(); i++){
+                for(int j = 0; j < nums.length; j++){
+                    ArrayList<Integer> newArr = new ArrayList<>();
+                    for(int k = 0; k < (ans.get(i)).size(); k++){
+                        newArr.add((ans.get(i)).get(k));
+                    }
+                    newArr.add(j, nums[nums.length-1]);
+                    newAns.add(newArr);
+                }
+            }
+            ans = newAns;
+            return ans;
+        }
+    }
+}
