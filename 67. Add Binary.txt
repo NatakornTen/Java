@@ -1,0 +1,44 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the first binary: ");
+        String a = input.next();
+        System.out.print("Enter the second binary: ");
+        String b = input.next();
+        Solution sol = new Solution();
+        System.out.print(sol.addBinary(a, b));
+    }
+}
+
+class Solution {
+    public String addBinary(String a, String b) {
+        if(a.equals("0") && b.equals("0")){
+            return "0";
+        }
+        int A = 0;
+        for(int i = a.length()-1; i >= 0; i--){
+            A = A + (Integer.parseInt(a.substring(i, i+1)))*((int)Math.pow(2, a.length()-1-i));
+        }
+        int B = 0;
+        for(int i = b.length()-1; i >= 0; i--){
+            B = B + (Integer.parseInt(b.substring(i, i+1)))*((int)Math.pow(2, b.length()-1-i));
+        }
+        int C = A + B;
+        String ReverseAns = "";
+        String ans = "";
+        while(true){
+            if(C == 1){
+                ReverseAns = ReverseAns + "1";
+                break;
+            }
+            int r = C%2;
+            ReverseAns = ReverseAns + r;
+            C = C/2;
+        }
+        for(int i = 0; i < ReverseAns.length(); i++){
+            ans = ans + ReverseAns.substring(ReverseAns.length()-1-i, ReverseAns.length() - i);
+        }
+        return ans;
+    }
+}
