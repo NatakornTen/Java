@@ -1,0 +1,88 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String digits = input.next();
+        Solution sol = new Solution();
+        System.out.println(sol.letterCombinations(digits));
+    }
+}
+
+class Solution{
+    public ArrayList<String> letterCombinations(String digits) {
+        ArrayList<String> ans = new ArrayList<>();
+        if(digits.length() == 0){
+            return ans;
+        }
+        else if(digits.length() == 1){
+            if(digits.equals("2")){
+                ans.add("a");
+                ans.add("b");
+                ans.add("c");
+                return ans;
+            }
+            if(digits.equals("3")){
+                ans.add("d");
+                ans.add("e");
+                ans.add("f");
+                return ans;
+            }
+            if(digits.equals("4")){
+                ans.add("g");
+                ans.add("h");
+                ans.add("i");
+                return ans;
+            }
+            if(digits.equals("5")){
+                ans.add("j");
+                ans.add("k");
+                ans.add("l");
+                return ans;
+            }
+            if(digits.equals("6")){
+                ans.add("m");
+                ans.add("n");
+                ans.add("o");
+                return ans;
+            }
+            if(digits.equals("7")){
+                ans.add("p");
+                ans.add("q");
+                ans.add("r");
+                ans.add("s");
+                return ans;
+            }
+            if(digits.equals("8")){
+                ans.add("t");
+                ans.add("u");
+                ans.add("v");
+                return ans;
+            }
+            if(digits.equals("9")){
+                ans.add("w");
+                ans.add("x");
+                ans.add("y");
+                ans.add("z");
+                return ans;
+            }
+        }
+        else{
+            String digits1 = digits.substring(0, digits.length()-1);
+            String digits2 = digits.substring(digits.length()-1, digits.length());
+            ArrayList<String> ans1;
+            ArrayList<String> ans2;
+            ans1 = letterCombinations(digits1);
+            ans2 = letterCombinations(digits2);
+            for(int i = 0; i < ans1.size(); i++){
+                for(int j = 0; j < ans2.size(); j++){
+                    String x = ans1.get(i) + ans2.get(j);
+                    ans.add(x);
+                }
+            }
+            return ans;
+        }
+        return ans;
+    }
+}
