@@ -1,0 +1,30 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String s = input.nextLine();
+        Solution sol = new Solution();
+        System.out.println(sol.longestPalindrome(s));
+    }
+}
+
+class Solution {
+    public String longestPalindrome(String s){
+        String ans = "";
+        for(int i = s.length(); i >= 1; i--){
+            for(int j = 0; j <= s.length()-i; j++){
+                String ss = s.substring(j, j+i);
+                String rss = "";
+                for(int k = ss.length()-1; k >=0; k--){
+                    rss = rss + ss.substring(k,k+1);
+                }
+                if(ss.equals(rss)){
+                    ans = ss;
+                    return ans;
+                }
+            }
+        }
+        return ans;
+    }
+}
