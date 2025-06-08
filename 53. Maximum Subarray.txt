@@ -1,0 +1,42 @@
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
+public class Main{
+    public static void main(String args[]){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the number of elements in array: ");
+        int n = input.nextInt();
+        int[] nums = new int[n];
+        for(int i = 0; i < n; i++){
+            System.out.print("Enter a number: ");
+            int x = input.nextInt();
+            nums[i] = x;
+        }
+        System.out.println("nums = " + Arrays.toString(nums));
+        Solution sol = new Solution();
+        System.out.println(sol.maxSubArray(nums));
+    }
+}
+
+class Solution{
+    public int maxSubArray(int[] nums){
+        ArrayList<Integer> sum = new ArrayList<>();
+        for(int i = 1; i <= nums.length; i++){
+            for(int j = 0; j <= nums.length-i; j++){
+                int[] subArray = new int[i];
+                int sumOfSubArray = 0;
+                for(int k = j; k < j+i; k++){
+                    sumOfSubArray = sumOfSubArray + nums[k];
+                }
+                sum.add(sumOfSubArray);
+            }
+        }
+        int max = sum.get(0);
+        for(int i = 0; i < sum.size(); i++){
+            if(sum.get(i) > max){
+                max = sum.get(i);
+            }
+        }
+        return max;
+    }
+}
