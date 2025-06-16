@@ -1,0 +1,34 @@
+import java.util.Scanner;
+public class Main{
+    public static void main(String args[]){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int n = input.nextInt();
+        Solution sol = new Solution();
+        System.out.println(sol.hammingWeight(n));
+    }
+}
+
+class Solution {
+    public int hammingWeight(int n) {
+        if(n == 1){
+            return 1;
+        }
+        String binary = "";
+        while(true){
+            binary = (n%2) + binary;
+            n = n/2;
+            if(n == 1){
+                binary = 1 + binary;
+                break;
+            }
+        }
+        int cnt = 0;
+        for(int i = 0; i < binary.length(); i++){
+            if((binary.substring(i, i+1)).equals("1")){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
