@@ -1,0 +1,32 @@
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the length of the array: ");
+        int length = input.nextInt();
+        int[] nums = new int[length];
+        for(int i = 0; i < length; i++){
+            System.out.print("Enter a number: ");
+            int x = input.nextInt();
+            nums[i] = x;
+        }
+        System.out.println("nums = " + Arrays.toString(nums));
+        Solution sol = new Solution();
+        System.out.println(sol.maximumDifference(nums));
+    }
+}
+
+class Solution{
+    public int maximumDifference(int[] nums) {
+        int result = -1;
+        for(int i = 0; i < nums.length-1; i++){
+            for(int j = i+1; j < nums.length; j++){
+                if(nums[i] < nums[j] && nums[j]-nums[i] > result){
+                    result = nums[j]-nums[i];
+                }
+            }
+        }
+        return result;
+    }
+}
