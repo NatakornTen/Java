@@ -1,0 +1,42 @@
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main{
+    public static void main(String args[]){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the number of elements in array: ");
+        int n = input.nextInt();
+        int[] nums = new int[n];
+        for(int i = 0; i < n; i++){
+            System.out.print("Enter a number: ");
+            nums[i] = input.nextInt();
+        }
+        System.out.println("nums = " + Arrays.toString(nums));
+        Solution sol = new Solution();
+        System.out.println(sol.maxAscendingSum(nums));
+    }
+}
+
+class Solution {
+    public int maxAscendingSum(int[] nums) {
+        int[] arrayOfSum = new int[nums.length];
+        for(int i = 0; i < nums.length; i++){
+            int sum = nums[i];
+            for(int j = i+1; j < nums.length; j++){
+                if(nums[j] > nums[j-1]){
+                    sum = sum + nums[j];
+                }
+                else{
+                    break;
+                }
+            }
+            arrayOfSum[i] = sum;
+        }
+        int max = arrayOfSum[0];
+        for(int i = 1; i < arrayOfSum.length; i++){
+            if(arrayOfSum[i] > max){
+                max = arrayOfSum[i];
+            }
+        }
+        return max;
+    }
+}
