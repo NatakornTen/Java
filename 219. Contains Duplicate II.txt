@@ -1,0 +1,33 @@
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the number of elements: ");
+        int n = input.nextInt();
+        int[] nums = new int[n];
+        for(int i = 0; i < n; i++){
+            System.out.print("Enter a number: ");
+            nums[i] = input.nextInt();
+        }
+        System.out.print("Enter a value of k: ");
+        int k = input.nextInt();
+        System.out.println("nums = " + Arrays.toString(nums));
+        System.out.println("k = " + k);
+        Solution sol = new Solution();
+        System.out.println(sol.containsNearbyDuplicate(nums, k));
+    }
+}
+
+class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        for(int d = 1; d <= k; d++){
+            for(int start = 0; start < nums.length-d; start++){
+                if(nums[start] == nums[start+d]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
