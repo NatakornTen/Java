@@ -1,0 +1,45 @@
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the number of elements: ");
+        int n = input.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0; i < n; i++){
+            System.out.print("Enter a number: ");
+            arr[i] = input.nextInt();
+        }
+        System.out.println("arr = " + Arrays.toString(arr));
+        Solution sol = new Solution();
+        System.out.println(sol.longestMountain(arr));
+    }
+}
+
+class Solution {
+    public int longestMountain(int[] arr) {
+        for(int l = arr.length; l >= 3; l--){
+            for(int start = 0; start <= arr.length-l; start++){
+                for(int v = start+1; v < start+l-1; v++){
+                    Boolean isMountain = true;
+                    for(int i = start; i < v; i++){
+                        if(arr[i] >= arr[i+1]){
+                            isMountain = false;
+                            break;
+                        }
+                    }
+                    for(int j = v; j < start+l-1; j++){
+                        if(arr[j] <= arr[j+1]){
+                            isMountain = false;
+                            break;
+                        }
+                    }
+                    if(isMountain){
+                        return l;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+}
