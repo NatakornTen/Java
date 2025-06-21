@@ -1,0 +1,32 @@
+import java.util.Scanner;
+public class Main{
+    public static void main(String args[]){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int n = input.nextInt();
+        Solution sol = new Solution();
+        System.out.println("n = " + n);
+        System.out.println(sol.countPrimes(n));
+    }
+}
+
+class Solution{
+    public int countPrimes(int n){
+        if(n == 0){
+            return 0;
+        }
+        int cnt = 0;
+        for(int i = 1; i < n; i++){
+            int cnt2 = 0;
+            for(int j = 1; j <= i; j++){
+                if(i%j == 0){
+                    cnt2++;
+                }
+            }
+            if(cnt2 == 2){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
