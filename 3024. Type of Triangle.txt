@@ -1,0 +1,34 @@
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int[] nums = new int[3];
+        System.out.print("Enter the first side: ");
+        nums[0] = input.nextInt();
+        System.out.print("Enter the second side: ");
+        nums[1] = input.nextInt();
+        System.out.print("Enter the third side: ");
+        nums[2] = input.nextInt();
+        System.out.println("nums = " + Arrays.toString(nums));
+        Solution sol = new Solution();
+        System.out.println(sol.triangleType(nums));
+    }
+}
+
+class Solution{
+    public String triangleType(int[] nums) {
+           if(nums[0]<nums[1]+nums[2] && nums[1]<nums[0]+nums[2] && nums[2]<nums[0]+nums[1]){
+               if(nums[0] == nums[1] && nums[1] == nums[2]){
+                   return "equilateral";
+               }
+               else if(nums[0] == nums[1] || nums[0] == nums[2] || nums[1] == nums[2]){
+                   return "isosceles";
+               }
+               else{
+                   return "scalene";
+               }
+           }
+           return "none";
+    }
+}
