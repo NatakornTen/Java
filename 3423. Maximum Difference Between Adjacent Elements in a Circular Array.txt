@@ -1,0 +1,32 @@
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main{
+    public static void main(String arg[]){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter length of the array: ");
+        int n = input.nextInt();
+        int[] nums = new int[n];
+        for(int i = 0; i < n; i++){
+            System.out.print("Enter a number: ");
+            nums[i] = input.nextInt();
+        }
+        System.out.println("nums = " + Arrays.toString(nums));
+        Solution sol = new Solution();
+        System.out.println(sol.maxAdjacentDistance(nums));
+    }
+}
+
+class Solution {
+    public int maxAdjacentDistance(int[] nums) {
+        int ans = 0;
+        for(int i = 0; i < nums.length-1; i++){
+            if(Math.abs(nums[i] - nums[i+1]) > ans){
+                ans = Math.abs(nums[i] - nums[i+1]);
+            }
+        }
+        if(Math.abs(nums[nums.length-1]-nums[0]) > ans){
+            ans = Math.abs(nums[nums.length-1]-nums[0]);
+        }
+        return ans;
+    }
+}
