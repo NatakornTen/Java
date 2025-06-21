@@ -1,0 +1,37 @@
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+public class Main{
+    public static void main(String args[]){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter number of words: ");
+        int n = input.nextInt();
+        String[] words = new String[n];
+        for(int i = 0; i < n; i++){
+            System.out.print("Enter a word: ");
+            words[i] = input.next();
+        }
+        System.out.print("Enter an alphabet: ");
+        char x = input.next().charAt(0);
+        System.out.println("words = " + Arrays.toString(words));
+        System.out.println("x = " + x);
+        Solution sol = new Solution();
+        System.out.println(sol.findWordsContaining(words, x));
+    }
+}
+
+class Solution {
+    public List<Integer> findWordsContaining(String[] words, char x){
+        List<Integer> ans = new ArrayList<>();
+        for(int i = 0; i < words.length; i++){
+            for(int j = 0; j < words[i].length(); j++){
+                if((words[i].charAt(j)) == x){
+                    ans.add(i);
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+}
