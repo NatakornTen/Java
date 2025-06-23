@@ -1,0 +1,49 @@
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+public class Main{
+    public static void main(String args[]){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the left number: ");
+        int left = input.nextInt();
+        System.out.print("Enter the right number: ");
+        int right = input.nextInt();
+        System.out.println("left = " + left + ", right = " + right);
+        Solution sol = new Solution();
+        System.out.println(sol.selfDividingNumbers(left, right));
+    }
+}
+
+class Solution{
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> ans = new ArrayList<>();
+        for(int i = left; i <= right; i++){
+            String str = String.valueOf(i);
+            int[] listOfDigit = new int[str.length()];
+            for(int j = 0; j < str.length(); j++){
+                listOfDigit[j] = Integer.parseInt(str.substring(j, j+1));
+            }
+            Boolean hasZero = false;
+            for(int m = 0; m < listOfDigit.length; m++){
+                if(listOfDigit[m] == 0){
+                    hasZero = true;
+                    break;
+                }
+            }
+            if(hasZero){
+                continue;
+            }
+            Boolean selfDivide = true;
+            for(int k = 0; k < listOfDigit.length; k++){
+                if(i%listOfDigit[k] != 0){
+                    selfDivide = false;
+                    break;
+                }
+            }
+            if(selfDivide){
+                ans.add(i);
+            }
+        }
+        return ans;
+    }
+}
