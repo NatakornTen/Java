@@ -1,0 +1,65 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int n = input.nextInt();
+        Solution sol = new Solution();
+        System.out.println("n = " + n);
+        System.out.println(sol.countLargestGroup(n));
+    }
+}
+
+class Solution {
+    public int countLargestGroup(int n) {
+        if(n < 10){
+            return n;
+        }
+        ArrayList<ArrayList<Integer>> listOfList = new ArrayList<>();
+        for(int i = 1; i <= 9; i++){
+            ArrayList<Integer> x = new ArrayList<>();
+            x.add(i);
+            x.add(i);
+            listOfList.add(x);
+        }
+        for(int i = 10; i <= n; i++){
+            int sum = 0;
+            String str = String.valueOf(i);
+            for(int j = 0; j < str.length(); j++){
+                sum = sum + Integer.parseInt(str.substring(j, j+1));
+            }
+            Boolean notFound = true;
+            for(int k = 0; k < listOfList.size(); k++){
+                if(sum == listOfList.get(k).get(0)){
+                    listOfList.get(k).add(i);
+                    notFound = false;
+                    break;
+                }
+            }
+            if(notFound){
+                ArrayList<Integer> y = new ArrayList<>();
+                y.add(sum);
+                y.add(i);
+                listOfList.add(y);
+            }
+        }
+        int[] listOfSize = new int[listOfList.size()];
+        for(int i = 0; i < listOfList.size(); i++){
+            listOfSize[i] = listOfList.get(i).size();
+        }
+        int max = listOfSize[0];
+        for(int i = 1; i < listOfSize.length; i++){
+            if(listOfSize[i] > max){
+                max = listOfSize[i];
+            }
+        }
+        int cnt = 0;
+        for(int i = 0; i < listOfList.size(); i++){
+            if(listOfList.get(i).size() == max){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
