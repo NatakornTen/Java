@@ -1,0 +1,45 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int n = input.nextInt();
+        System.out.println("n = " + n);
+        Solution sol = new Solution();
+        System.out.println(sol.primePalindrome(n));
+    }
+}
+
+class Solution {
+    public int primePalindrome(int n) {
+        if(n == 1 || n == 2){
+            return 2;
+        }
+        Boolean notFound = true;
+        while(notFound){
+            Boolean palindrome = false;
+            Boolean prime = true;
+            String str = String.valueOf(n);
+            String strR = "";
+            for(int i = str.length()-1; i >= 0; i--){
+                strR = strR + str.substring(i, i+1);
+            }
+            if(str.equals(strR)){
+                palindrome = true;
+            }
+            for(int i = 2; i < n; i++){
+                if(n%i == 0){
+                    prime = false;
+                    break;
+                }
+            }
+            if(prime && palindrome){
+                notFound = false;
+            }
+            else{
+                n++;
+            }
+        }
+        return n;
+    }
+}
