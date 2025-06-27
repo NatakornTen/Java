@@ -1,0 +1,37 @@
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the number of elements: ");
+        int n = input.nextInt();
+        int[] nums = new int[n];
+        for(int i = 0; i < n; i++){
+            System.out.print("Enter a number: ");
+            nums[i] = input.nextInt();
+        }
+        System.out.println("nums = " + Arrays.toString(nums));
+        Solution sol = new Solution();
+        System.out.println(sol.countBeautifulPairs(nums));
+    }
+}
+
+class Solution {
+    public int countBeautifulPairs(int[] nums) {
+        int cnt = 0;
+        for(int i = 0; i < nums.length-1; i++){
+            for(int j = i+1; j < nums.length; j++){
+                int gcd = 1;
+                for(int k = 1; k <= Math.min(nums[i], nums[j]); k++){
+                    if(nums[i]%k == 0 && nums[j]%k == 0){
+                        gcd = k;
+                    }                    
+                }
+                if(gcd == 1){
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+}
