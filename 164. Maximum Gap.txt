@@ -1,0 +1,57 @@
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main{
+    public static void main(String args[]){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the number of elements: ");
+        int n = input.nextInt();
+        int[] nums = new int[n];
+        for(int i = 0; i < n; i++){
+            System.out.print("Enter a number: ");
+            nums[i] = input.nextInt();
+        }
+        System.out.println("nums = " + Arrays.toString(nums));
+        Solution sol = new Solution();
+        System.out.println(sol.maximumGap(nums));
+    }
+}
+
+class Solution {
+    public int maximumGap(int[] nums) {
+        if(nums.length < 2){
+            return 0;
+        }
+        int[] nums_sorted = new int[nums.length];
+        //find the max value in nums
+        int max = nums[0];
+        for(int i = 1; i < nums.length; i++){
+                if(nums[i] > max){
+                    max = nums[i];
+                }
+            }
+        int mark = max + 1;
+        //fill nums_sorted
+        for(int i = 0; i < nums.length; i++){
+            int min = nums[0];
+            for(int j = 1; j < nums.length; j++){
+                if(nums[j] < min){
+                    min = nums[j];
+                }
+            }
+            nums_sorted[i] = min;
+            for(int k = 0; k < nums.length; k++){
+                if(nums[k] == min){
+                    nums[k] = mark;
+                    break;
+                }
+            }
+        }
+        int maxGap = 0;
+        for(int i = 0; i < nums_sorted.length-1; i++){
+            if(nums_sorted[i+1] - nums_sorted[i] > maxGap){
+                maxGap = nums_sorted[i+1] - nums_sorted[i];
+            }
+        }
+        return maxGap;
+    }
+}
