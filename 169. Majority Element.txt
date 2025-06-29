@@ -1,0 +1,42 @@
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the number of elements: ");
+        int n = input.nextInt();
+        int[] nums = new int[n];
+        for(int i = 0; i < n; i++){
+            System.out.print("Enter a number: ");
+            nums[i] = input.nextInt();
+        }
+        System.out.println("nums = " + Arrays.toString(nums));
+        Solution sol = new Solution();
+        System.out.println(sol.majorityElement(nums));
+    }
+}
+
+class Solution {
+    public int majorityElement(int[] nums) {
+        ArrayList<Integer> listOfNum = new ArrayList<>();
+        //fill in listOfNum
+        for(int i = 0; i < nums.length; i++){
+            if(!listOfNum.contains(nums[i])){
+                listOfNum.add(nums[i]);
+            }
+        }
+        for(int i = 0; i < listOfNum.size(); i++){
+            int cnt = 0;
+            for(int j = 0; j < nums.length; j++){
+                if(nums[j] == listOfNum.get(i)){
+                    cnt++;
+                }
+            }
+            if(cnt > Math.floor(nums.length/2)){
+                return listOfNum.get(i);
+            }
+        }
+        return 0;
+    }
+}
