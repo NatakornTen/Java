@@ -1,0 +1,47 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String s = input.next();
+        System.out.println("s = " + s);
+        Solution sol = new Solution();
+        System.out.println(sol.firstUniqChar(s));
+    }
+}
+
+class Solution {
+    public int firstUniqChar(String s) {
+        ArrayList<String> alphabets = new ArrayList<>();
+        for(int i = 0; i < s.length(); i++){
+            if(!alphabets.contains(s.substring(i, i+1))){
+                alphabets.add(s.substring(i, i+1));
+            }
+        }
+        String x = "";
+        for(int i = 0; i < alphabets.size(); i++){
+            int cnt = 0;
+            for(int j = 0; j < s.length(); j++){
+                if(alphabets.get(i).equals(s.substring(j, j+1))){
+                    cnt++;
+                }
+            }
+            if(cnt == 1){
+                x = alphabets.get(i);
+                break;
+            }
+        }
+        if(x.equals("")){
+            return -1;
+        }
+        int ans = 0;
+        for(int i = 0; i < s.length(); i++){
+            if(x.equals(s.substring(i, i+1))){
+                ans = i;
+                break;
+            }
+        }
+        return ans;
+    }
+}
