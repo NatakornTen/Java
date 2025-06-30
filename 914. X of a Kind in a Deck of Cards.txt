@@ -1,0 +1,70 @@
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
+public class Main{
+    public static void main(String args[]){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the number of cards: ");
+        int n = input.nextInt();
+        int[] deck = new int[n];
+        for(int i = 0; i < n; i++){
+            System.out.print("Enter a number: ");
+            deck[i] = input.nextInt();
+        }
+        System.out.println("deck = " + Arrays.toString(deck));
+        Solution sol = new Solution();
+        System.out.println(sol. hasGroupsSizeX(deck));
+    }
+}
+
+class Solution {
+    public boolean hasGroupsSizeX(int[] deck) {
+        ArrayList<Integer> listOfNums = new ArrayList<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
+        //fill in listOfNums
+        for(int i = 0; i < deck.length; i++){
+            if(!listOfNums.contains(deck[i])){
+                listOfNums.add(deck[i]);
+            }
+        }
+        for(int i = 0; i < listOfNums.size(); i++){
+            int cnt = 0;
+            for(int j = 0; j < deck.length; j++){
+                if(listOfNums.get(i) == deck[j]){
+                    cnt++;
+                }
+            }
+            map.put(listOfNums.get(i), cnt);
+        }
+        ArrayList<Integer> x = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            x.add(entry.getValue());
+        }
+        int min = x.get(0);
+        for(int i = 1; i < x.size(); i++){
+            if(x.get(i) < min){
+                min = x.get(i);
+            }
+        }
+        int gcd = 0;
+        for(int i = min; i >=1; i--){
+            Boolean isGCD = true;
+            for(int j = 0; j < x.size(); j++){
+                if(x.get(j)%i != 0){
+                    isGCD = false;
+                    break;
+                }
+            }
+            if(isGCD){
+                    gcd = i;
+                    break;
+                }
+        }
+        if(gcd > 1){
+            return true;
+        }
+        return false;
+    }
+}
