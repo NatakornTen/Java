@@ -1,0 +1,82 @@
+import java.util.Scanner;
+
+public class QuizGame {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Questions
+        String[] questions = {
+            "1) What is the capital of France?",
+            "2) What does CPU stand for?",
+            "3) Which planet is known as the Red Planet?",
+            "4) 1 + 2 + 3 + ... + 50 = ?",
+            "5) What is the largest ocean on Earth?",
+            "6) Who wrote 'Romeo and Juliet'?",
+            "7) Which country is famous for the Great Wall?",
+            "8) How many continents are there?",
+            "9) What gas do plants absorb from the atmosphere?",
+            "10) Which animal is known as the King of the Jungle?",
+            "11) What is the fastest land animal?",
+            "12) Which planet is closest to the Sun?",
+            "13) What is the tallest mountain in the world?",
+            "14) Which country invented paper?",
+            "15) What is the hardest natural substance?",
+            "16) How many days are there in a leap year?",
+            "17) Which planet is known as the Blue Planet?",
+            "18) What is the smallest prime number?",
+            "19) Which organ pumps blood through the body?",
+            "20) Who painted the Mona Lisa?"
+        };
+
+        // Choices (A/B/C)
+        String[][] choices = {
+            {"A) Paris", "B) London", "C) Rome"},
+            {"A) Central Print Unit", "B) Central Processing Unit", "C) Computer Power Utility"},
+            {"A) Venus", "B) Mars", "C) Jupiter"},
+            {"A) 4950", "B) 5050", "C) 5150"},
+            {"A) Atlantic Ocean", "B) Indian Ocean", "C) Pacific Ocean"},
+            {"A) Charles Dickens", "B) William Shakespeare", "C) Mark Twain"},
+            {"A) Japan", "B) China", "C) India"},
+            {"A) 5", "B) 6", "C) 7"},
+            {"A) Oxygen", "B) Carbon Dioxide", "C) Nitrogen"},
+            {"A) Tiger", "B) Lion", "C) Elephant"},
+            {"A) Cheetah", "B) Horse", "C) Leopard"},
+            {"A) Venus", "B) Mercury", "C) Earth"},
+            {"A) K2", "B) Mount Everest", "C) Kangchenjunga"},
+            {"A) Egypt", "B) China", "C) Greece"},
+            {"A) Gold", "B) Iron", "C) Diamond"},
+            {"A) 365", "B) 366", "C) 364"},
+            {"A) Earth", "B) Neptune", "C) Uranus"},
+            {"A) 2", "B) 3", "C) 5"},
+            {"A) Liver", "B) Brain", "C) Heart"},
+            {"A) Vincent van Gogh", "B) Pablo Picasso", "C) Leonardo da Vinci"}
+        };
+
+        // Correct answers
+        char[] answers = {'A', 'B', 'B', 'B', 'C', 'B', 'B', 'C', 'B', 'B', 'A', 'B', 'B', 'B', 'C', 'B', 'A', 'A', 'C', 'C'};
+
+        int score = 0;
+
+        // Game loop
+        for (int i = 0; i < questions.length; i++) {
+            System.out.println(questions[i]);
+            for (int j = 0; j < choices[i].length; j++) {
+                System.out.println(choices[i][j]);
+            }
+
+            System.out.print("Your answer (A/B/C): ");
+            char userAns = Character.toUpperCase(sc.next().charAt(0));
+
+            if (userAns == answers[i]) {
+                System.out.println("Correct!\n");
+                score++;
+            } else {
+                System.out.println("Wrong! Correct answer: " + answers[i] + "\n");
+            }
+        }
+
+        // Final score
+        System.out.println("Quiz finished!");
+        System.out.println("Your score: " + score + " / " + questions.length);
+    }
+}
