@@ -1,0 +1,54 @@
+import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter subject (X to stop): ");
+        String subject = input.next();
+        double points = 0.0;
+        double total_credits = 0.0;
+        while(!subject.equals("X")){
+            System.out.print("Enter the credit: ");
+            double credit = input.nextDouble();
+            System.out.print("Enter your grade: ");
+            String grade = input.next();
+            if(grade.equals("A")){ 
+                points = points + (4 * credit);
+                total_credits = total_credits + credit;
+                
+            }else if(grade.equals("B+")){ 
+                points = points + (3.5 * credit);
+                total_credits = total_credits + credit;
+            }else if(grade.equals("B")){
+                points = points + (3 * credit);
+                total_credits = total_credits + credit;
+            }else if(grade.equals("C+")){
+                points = points + (2.5 * credit);
+                total_credits = total_credits + credit;
+            }else if(grade.equals("C")){
+                points = points + (2 * credit);
+                total_credits = total_credits + credit;
+            }else if(grade.equals("D+")){
+                points = points + (1.5 * credit);
+                total_credits = total_credits + credit;
+            }else if(grade.equals("D")){
+                points = points + (1 * credit);
+                total_credits = total_credits + credit;
+            }
+            else if(grade.equals("F")){
+                points = points + 0;
+                total_credits = total_credits + credit;
+            }
+            else{
+                System.out.println("Invalid grade");
+            }
+        System.out.print("Enter subject (X to stop): ");
+        subject = input.next();
+        }  
+       if(total_credits == 0){
+           System.out.println(0);
+       }
+       else{
+          System.out.println("Your GPAX = " + points/total_credits);
+       }
+    }
+}
